@@ -1,6 +1,7 @@
-import react from "react";
+import React from "react";
 import {Dimensions, Text, Button, View, StyleSheet} from 'react-native';
 import { useFonts } from "expo-font";
+import {BarChart} from 'react-native-charts-wrapper';
 
 function HomeScreen(navigation) {
     const [loaded] = useFonts({
