@@ -2,7 +2,10 @@ import react from "react";
 import {Dimensions, Text, Button, View, StyleSheet} from 'react-native';
 
 function HomeScreen(navigation) {
-    
+    const [loaded] = useFonts({
+        'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
+        'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
+      });
     return (
         <View>
         <View>
@@ -17,7 +20,8 @@ const styles = StyleSheet.create({
         width: 133,
         height: 37,
         top: 110,
-        left: 16
+        left: 16,
+        fontFamily: 'Montserrat-Bold'
     }
 });
 
