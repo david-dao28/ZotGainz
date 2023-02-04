@@ -4,7 +4,7 @@ import React from 'react';
 import Vector from "../svgs/Vector.svg";
 import {useFonts} from 'expo-font';
 
-export default function LoginScreen( { navigation }) {
+export default function LoginScreen( { navigation } ) {
   const [loaded] = useFonts({
     'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
     'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
@@ -19,7 +19,7 @@ export default function LoginScreen( { navigation }) {
       <Text style={styles.forgotTextContainer}> Forgot your netID?</Text>
       <Button
           title="Next"
-          onPress={() => { navigation.navigate('Home')}}
+          onPress={() => { navigation.navigate('HomeTab')}}
           buttonStyle={styles.loginButton}
           containerStyle={styles.loginButtonContainer}
           titleStyle={styles.loginButtonText}
@@ -83,5 +83,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FFD173'
   },
-
 });
