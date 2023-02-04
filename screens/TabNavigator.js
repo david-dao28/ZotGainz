@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LogScreen from './LogScreen';
 import ReserveScreen from './ReserveScreen';
 import ProfileScreen from './ProfileScreen';
+import BarChartScreen from './BarChartScreen';
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -22,6 +23,11 @@ const TabNavigator = () => {
       <Tab.Screen
         name="Reserve" 
         component={ReserveScreen} 
+        options={{ headerShown: false }} 
+      />
+      <Tab.Screen
+        name="View Bar Chart" 
+        component={BarChartScreen} 
         options={{ headerShown: false }} 
       />
     </Tab.Navigator>
