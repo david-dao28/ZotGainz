@@ -1,5 +1,6 @@
 import react from "react";
 import {Dimensions, Text, Button, View, StyleSheet} from 'react-native';
+import { useFonts } from "expo-font";
 
 function HomeScreen(navigation) {
     const [loaded] = useFonts({
