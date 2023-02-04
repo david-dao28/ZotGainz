@@ -3,11 +3,17 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LogScreen from './LogScreen';
 import ReserveScreen from './ReserveScreen';
+import ProfileScreen from './ProfileScreen';
 const Tab = createBottomTabNavigator();
 
-const HomeScreen = () => {
+const TabNavigator = () => {
   return (
     <Tab.Navigator>
+      <Tab.Screen 
+        name="Profile" 
+        component={ProfileScreen}
+        options={{ headerShown: false }}  
+      />
       <Tab.Screen 
         name="Log" 
         component={LogScreen}
@@ -22,4 +28,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen;
+export default TabNavigator;
