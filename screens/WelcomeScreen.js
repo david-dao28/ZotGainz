@@ -28,6 +28,7 @@ export default function WelcomeScreen({ navigation }) {
           buttonStyle={styles.loginButton}
           containerStyle={styles.loginButtonContainer}
           titleStyle={styles.loginButtonText}
+          onPress={() => { navigation.navigate('Login')}}
         />
       </ ImageBackground>
     </View>
@@ -50,9 +51,10 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: '#0059AC',
     borderRadius: 60,
+    width: 291,
+    height: 54,
   },
   loginButtonContainer: {
-    width: 291,
     top: 544
   },
   loginButtonText: {
