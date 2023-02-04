@@ -1,10 +1,20 @@
-import { View, Text, Button, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
-
+import { useFonts } from 'expo-font';
+import { Button } from '@rneui/themed';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function WelcomeScreen({ navigation }) {
+  const [loaded] = useFonts({
+    'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
+    'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -12,11 +22,12 @@ export default function WelcomeScreen({ navigation }) {
         style={styles.background}
         source={require('../assets/images/welcome_background.png')}
       >
-        <Text>WelcomeScreen</Text>
+        <Text style={styles.title}>ZotGainz</Text>
         <Button
-          color='white'
-          title="Go to Login"
-          onPress={() => navigation.navigate('Login')}
+          title="Sign in with UCI ID"
+          buttonStyle={styles.loginButton}
+          containerStyle={styles.loginButtonContainer}
+          titleStyle={styles.loginButtonText}
         />
       </ ImageBackground>
     </View>
@@ -31,11 +42,28 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    justifyContent: 'center',
+    alignItems: 'center',
     width: windowWidth,
-    height: windowHeight
+    height: windowHeight,
+    position: 'absolute'
   },
   loginButton: {
-    color: 'white'
+    backgroundColor: '#0059AC',
+    borderRadius: 60,
+  },
+  loginButtonContainer: {
+    width: 291,
+    top: 544
+  },
+  loginButtonText: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 20,
+    color: '#FFD173'
+  },
+  title: {
+    fontFamily: 'Montserrat-Bold',
+    color: 'white',
+    fontSize: 50,
+    paddingTop: 134
   }
 });
