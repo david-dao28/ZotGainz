@@ -24,7 +24,7 @@ export default function ScheduleRow({ court, row, updateHandler }) {
       newRow[boxNum] = '#FFD173';
     }
     else {
-      newRow[boxNum] = 'green';
+      newRow[boxNum] = '#4BA56A';
     }
     setBox(newRow);
     updateHandler(28*courtNum + boxNum);

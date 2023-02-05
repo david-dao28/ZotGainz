@@ -24,11 +24,11 @@ const ReserveScreen = () => {
   const [endTime, setEndTime] = useState('');
   const [courtNum, setCourtNum] = useState('');
   const [schedule, setSchedule] = useState(
-    ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
-    'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
-    'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
-    'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
-    'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
+    ['#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A',
+    '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A',
+    '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A',
+    '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A',
+    '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A', '#4BA56A']
     )
   const [isVisible, setIsVisible] = useState(false);
   const [loaded] = useFonts({
@@ -44,9 +44,10 @@ const ReserveScreen = () => {
   const todaysDate = `${month}/${day}/${year}`;
 
   const makeSmsApiRequest = async (start, end, court) => {
+    console.log("MAKING API REQUEST")
     const options = {
       method: "GET",
-      url: 'http://192.168.0.173:3000/sms',
+      url: 'http://169.234.116.118:3000/sms',
       params: {start: start, end: end, court: court}
     }
     axios.request(options).then((response => {
@@ -75,31 +76,31 @@ const ReserveScreen = () => {
 
   const updateScheduleHandler = (boxNum) => {
     let newSchedule = [...schedule];
-    if (newSchedule[boxNum] === 'green') {
-      newSchedule[boxNum] = 'yellow';
+    if (newSchedule[boxNum] === '#4BA56A') {
+      newSchedule[boxNum] = '#FFD173';
     }
     else {
-      newSchedule[boxNum] = 'green';
+      newSchedule[boxNum] = '#4BA56A';
     }
     setSchedule(newSchedule);
   }
   
   const boxIsSelected = () => {
-    return schedule.find(box => box === 'yellow'); 
+    return schedule.find(box => box === '#FFD173'); 
   }
 
   const onSubmitTimes = async () => {
     let selectedDate = new Date(2023, 2, 5, 8, 0, 0);
     const selectedBoxes = []
     for (let i = 0; i < schedule.length; ++i) {
-      if (schedule[i] === 'yellow') {
+      if (schedule[i] === '#FFD173') {
         selectedBoxes.push(i);
       }
     }
     console.log("SELECTED BOXES", selectedBoxes)
     let newSchedule = [...schedule];
     for (let i = 0; i < selectedBoxes.length; ++i) {
-      newSchedule[selectedBoxes[i]] = 'red'; 
+      newSchedule[selectedBoxes[i]] = '#D34242'; 
     }
     let startTimeUnformatted = moment(selectedDate.getTime() + (30*(selectedBoxes[0]%28)) * 60000).toDate();
     let endTimeUnformatted = moment(selectedDate.getTime() + (30*((selectedBoxes[selectedBoxes.length-1]+1)%28)) * 60000).toDate();
@@ -132,7 +133,7 @@ const ReserveScreen = () => {
 
   const closeConfirmation = () => {
     setIsVisible(false)
-    setModalVisible(false)
+    setModalVisible(false);
   }
 
   const showCongrats = async () => {
@@ -280,7 +281,7 @@ const ReserveScreen = () => {
       </Modal>
 
       <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white'}} isVisible={congratsVisible} style={{zIndex: 1}}>
-      <View style={{height: 700, backgroundColor: 'white'}}>
+      <View style={{height: 750, backgroundColor: 'white', marginTop: 100}}>
         <Text style={styles.title}>Congratulations!</Text>
         <Text style={styles.msg}>You have reserved a facility!</Text>
         <View style={styles.img}>
