@@ -15,14 +15,15 @@ app.use((req, res, next) => {
 })
 
 app.get('/sms', (req, res) => {
+  console.log(req.query)
   res.send('Sending message...');
-  sendSms();
+  sendSms(req.query);
 });
 
-const sendSms = () => {
+const sendSms = (query) => {
   client.messages
   .create({
-     body: `🎾 Congrats! You have successfully reserved Court ${s} at the ARC from ${s} to ${e} 🎾`,
+     body: `🎾 Congrats! You have successfully reserved Court ${query.court} at the ARC from ${query.start} to ${query.end} 🎾`,
      from: '+13608615820',
      to: '+19494452278'
    })
