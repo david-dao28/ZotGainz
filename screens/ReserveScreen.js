@@ -9,29 +9,6 @@ import ScheduleRow from '../components/ScheduleRow';
 import CloseIcon from '../svgs/close-icon.svg';
 import moment from 'moment/moment';
 
-const makeSmsApiRequest = (start, end, court) => {
-  axios.get('http://169.234.116.118:3000/sms',
-    {
-      params: {
-        startDate: start,
-        endDate: end,
-        courtNum: court 
-      }
-    },
-    {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    },
-).then((response) => {
-    console.log(response);
-  }).catch((error) => {
-    console.log(error);
-    throw error;
-  })
-}
-
 const timeArr = ["8:00 AM", "9:00 AM", "10:00 AM",
 "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM",
 "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM",
@@ -40,7 +17,10 @@ const timeArr = ["8:00 AM", "9:00 AM", "10:00 AM",
 
 const ReserveScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [congratsVisible, setCongratsVisible] = useState(false)
+  const [congratsVisible, setCongratsVisible] = useState(false);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [courtNum, setCourtNum] = useState('');
   const [schedule, setSchedule] = useState(
     ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
     'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
@@ -61,6 +41,26 @@ const ReserveScreen = () => {
   const year = String(today.getFullYear()).slice(2);
   const todaysDate = `${month}/${day}/${year}`;
 
+  const makeSmsApiRequest = async (start, end, court) => {
+    const options = {
+      method: "GET",
+      url: 'http://192.168.0.173:3000/sms',
+      params: {start: start, end: end, court: court}
+    }
+    axios.request(options).then((response => {
+      console.log("Successfully sent message!")
+    })).catch((error) => {
+      console.log(error)
+    })
+  //   axios.get(`http://192.168.0.173/sms?startDate=${startTime}&endDate=${endTime}&courtNum=${courtNum}`
+  //   ).then((response) => {
+  //       console.log(response);
+  //     }).catch((error) => {
+  //       console.log(error);
+  //       throw error;
+  //     })
+  }
+  
   const updateScheduleHandler = (boxNum) => {
     let newSchedule = [...schedule];
     if (newSchedule[boxNum] === 'green') {
@@ -76,15 +76,21 @@ const ReserveScreen = () => {
     return schedule.find(box => box === 'yellow'); 
   }
 
-  const onSubmitTimes = () => {
+  const onSubmitTimes = async () => {
     let selectedDate = new Date(2023, 2, 5, 8, 0, 0);
-    const selectedBoxes = schedule.findIndex(box => box === 'yellow');
+    const selectedBoxes = []
+    for (let i = 0; i < schedule.length; ++i) {
+      if (schedule[i] === 'yellow') {
+        selectedBoxes.push(i);
+      }
+    }
+    console.log("SELECTED BOXES", selectedBoxes)
     let newSchedule = [...schedule];
-    selectedBoxes.forEach(index => newSchedule[index] = 'red');
-    let startTime = moment(selectedDate).add(30*selectedBoxes[0], 'm').toDate();
-    let endTime = moment(selectedDate).add(30*selectedBoxes[selectedBoxes.length - 1], 'm').toDate();
-    startTime = moment(startTime).format("hh:mm a");
-    endTime =  moment(endTime).format("hh:mm a");
+    for (let i = 0; i < selectedBoxes.length; ++i) {
+      newSchedule[selectedBoxes[i]] = 'red'; 
+    }
+    let startTimeUnformatted = moment(selectedDate.getTime() + (30*(selectedBoxes[0]%28)) * 60000).toDate();
+    let endTimeUnformatted = moment(selectedDate.getTime() + (30*((selectedBoxes[selectedBoxes.length-1]+1)%28)) * 60000).toDate();
     let courtNum = 1;
 
     if (selectedBoxes[0] >= 28 && selectedBoxes[0] < 56) {
@@ -94,10 +100,14 @@ const ReserveScreen = () => {
     } else if (selectedBoxes[0] >= 84 && selectedBoxes[0] < 112)
     {
       courtNum = 4;
-    } else if (selectedBoxes[0] >= 112 && selectedBoxes[0] < 140)
-      courtNum = 5;
-    
+    } else if (selectedBoxes[0] >= 112 && selectedBoxes[0] < 140) {
+      courtNum = 5; 
+    }
       
+    setCourtNum(courtNum);
+    await makeSmsApiRequest(moment(startTimeUnformatted).format("hh:mm a"), moment(endTimeUnformatted).format("hh:mm a"), courtNum);
+
+    // console.log(newSchedule)
     setSchedule(newSchedule);
   }
   
@@ -112,9 +122,10 @@ const ReserveScreen = () => {
   }
 
   const showCongrats = () => {
-    setIsVisible(false)
-    setModalVisible(false)
-    setCongratsVisible(true)
+    setIsVisible(false);
+    setModalVisible(false);
+    onSubmitTimes();
+    setCongratsVisible(true);
   }
 
   const closeCongrats = () => {
@@ -278,7 +289,7 @@ const ReserveScreen = () => {
         /> */}
       <Text style={styles.reservationsText}>
         Your Reservations</Text>
-      <ReservationList />
+      <ReservationList  />
 
     </ScrollView>
   )

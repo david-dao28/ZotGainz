@@ -34,9 +34,9 @@ const BusynessBarChart = () => {
     })
   }
 
-  // useEffect(() => {
-  //   getTrafficData();
-  // }, []);
+  useEffect(() => {
+    getTrafficData();
+  }, []);
 
   return (
     <View>
