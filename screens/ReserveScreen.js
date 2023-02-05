@@ -7,9 +7,17 @@ import ReservationList from './ReservationList';
 import axios from 'axios';
 import ScheduleRow from '../components/ScheduleRow';
 import CloseIcon from '../svgs/close-icon.svg';
+import moment from 'moment/moment';
 
-const makeSmsApiRequest = () => {
+const makeSmsApiRequest = (start, end, court) => {
   axios.get('http://169.234.116.118:3000/sms',
+    {
+      params: {
+        startDate: start,
+        endDate: end,
+        courtNum: court 
+      }
+    },
     {
       headers: {
         Accept: 'application/json',
@@ -39,13 +47,18 @@ const ReserveScreen = () => {
     'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
     'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green']
     )
-
   const [isVisible, setIsVisible] = useState(false);
-
   const [loaded] = useFonts({
     'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
     'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
   });
+
+  // get today's date
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const year = String(today.getFullYear()).slice(2);
+  const todaysDate = `${month}/${day}/${year}`;
 
   const updateScheduleHandler = (boxNum) => {
     let newSchedule = [...schedule];
@@ -83,7 +96,7 @@ const ReserveScreen = () => {
     return null;
   }
   return (
-     <ScrollView style={styles.bodyContainer}>
+     <ScrollView style={styles.bodyContainer} bounces={false}>
       <View>
         <Text style={styles.titleContainer}>
           Reserve Facility
@@ -93,7 +106,7 @@ const ReserveScreen = () => {
         <View style={{height: 700, backgroundColor: 'white'}}>
           <View>
             <Text style={styles.dateText}>
-              02/05/23
+             {todaysDate} 
             </Text>
             <TouchableOpacity style={styles.scheduleClose} onPress={() => setIsVisible(false)}>
               <CloseIcon  width={30} height={30} /> 

@@ -22,7 +22,7 @@ app.get('/sms', (req, res) => {
 const sendSms = () => {
   client.messages
   .create({
-     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+     body: `🎾 Congrats! You have successfully reserved Court ${s} at the ARC from ${s} to ${e} 🎾`,
      from: '+13608615820',
      to: '+19494452278'
    })
