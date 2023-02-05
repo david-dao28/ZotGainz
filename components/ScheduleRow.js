@@ -1,16 +1,25 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, {useEffect, useState} from 'react'
+import moment from 'moment/moment';
 
 
-export default function ScheduleRow({ court, row, updateHandler }) {
-  let selectedDate = new Date();
+
+export default function ScheduleRow({ court, row, updateHandler }) {  
+  
+  let selectedDate = new Date(2023, 2, 5, 8, 0, 0);
   const courtNum = court;
   const [box, setBox] = useState([])
   useEffect(() => {
     setBox(row)
   })
   const updateRow = (boxNum) => {
+    let newHours = moment(selectedDate).add(30*boxNum, 'm').toDate().getHours();
+    let newMinutes = moment(selectedDate).add(30*boxNum, 'm').toDate().getMinutes();
+
+    console.log(newHours);
+    console.log(newMinutes);
     let newRow = [...box];
+    console.log(selectedDate);
     if (box[boxNum] === 'green') {
       newRow[boxNum] = 'yellow';
     }
@@ -19,6 +28,7 @@ export default function ScheduleRow({ court, row, updateHandler }) {
     }
     setBox(newRow);
     updateHandler(28*courtNum + boxNum);
+
   }
   // if (!fetchedSchedule) {
   //   return null;
