@@ -19,7 +19,7 @@ export default function UpcomingEvents() {
   ];
   
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.sectionTitle}>Upcoming Events</Text>
       <CustomCarousel data={events} />
     </View>
@@ -27,6 +27,9 @@ export default function UpcomingEvents() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 32
+  },
   sectionTitle: {
     fontSize: 20,
     fontFamily: 'Montserrat-Bold',

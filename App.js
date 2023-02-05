@@ -10,8 +10,6 @@ import TabNavigator from './screens/TabNavigator';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
     <NavigationContainer>
       <ThemeProvider>

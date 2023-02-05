@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, Dimensions, Image } from 'react-native';
 import React from 'react';
 import { useFonts } from 'expo-font';
 import { Button } from '@rneui/themed';
@@ -23,6 +23,7 @@ export default function WelcomeScreen({ navigation }) {
         source={require('../assets/images/welcome_background.png')}
       >
         <Text style={styles.title}>ZotGainz</Text>
+        <Image style={styles.petrIcon} source={require('../assets/images/petr-pose.png')}/>
         <Button
           title="Sign in with UCI ID"
           buttonStyle={styles.loginButton}
@@ -37,9 +38,7 @@ export default function WelcomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center'
+    flex: 1
   },
   background: {
     flex: 1,
@@ -48,6 +47,9 @@ const styles = StyleSheet.create({
     height: windowHeight,
     position: 'absolute'
   },
+  petrIcon: {
+    top: 100
+  },
   loginButton: {
     backgroundColor: '#0059AC',
     borderRadius: 60,
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     height: 54,
   },
   loginButtonContainer: {
-    top: 544
+    paddingTop: 224
   },
   loginButtonText: {
     fontFamily: 'Montserrat-Regular',
