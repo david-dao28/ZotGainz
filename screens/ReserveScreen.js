@@ -190,6 +190,20 @@ const ReserveScreen = () => {
               <ScheduleRow court = {4} row={schedule.slice(112, 140)} updateHandler={updateScheduleHandler}/>
             </View>
           </ScrollView>
+          <View style={{flexDirection: 'row', bottom: 70, left: 40}} >
+            <View style={styles.classicWrapper}>
+              <View style={styles.available}></View>
+              <Text style={styles.keyText}>Available</Text>
+            </View>
+            <View style={styles.classicWrapper}>
+              <View style={styles.yourbooking}></View>
+              <Text style={styles.keyText}>Your Booking</Text>
+            </View>
+            <View style={styles.classicWrapper}>
+              <View style={styles.unavailable}></View>
+              <Text style={styles.keyText}>Unavailable</Text>
+            </View>
+          </View>
           {boxIsSelected() && <Button
             title="Submit"
             onPress={() => showConfirmation()}
@@ -240,7 +254,7 @@ const ReserveScreen = () => {
         </View>
       </Modal>
 
-      <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white'}} isVisible={congratsVisible}>
+      <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white'}} isVisible={congratsVisible} style={{zIndex: 1}}>
       <View style={{height: 700, backgroundColor: 'white'}}>
         <Text style={styles.title}>Congratulations!</Text>
         <Text style={styles.msg}>You have reserved a facility!</Text>
@@ -337,7 +351,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   scheduleContainer: {
-    top: 64,
+    top: 40,
     flexDirection: 'row',
   },
   dateContainer: {
@@ -506,6 +520,47 @@ const styles = StyleSheet.create({
   petr: {
     marginLeft: 35,
   }, 
+  backgroundBlur: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: 900,
+    height: 900,
+    backgroundColor: 'rgb(0,0,0)',
+    zIndex: 1, 
+  },
+  keyText: {
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 12,
+    lineHeight: 12,
+  },
+  available: {
+    marginRight: 5,
+    width: 20,
+    height: 20,
+    backgroundColor: "#4BA56A",
+    borderRadius: 2,
+  },
+  yourbooking: {
+    marginRight: 5,
+    width: 20,
+    height: 20,
+    backgroundColor: "#FFD173",
+    borderRadius: 2
+  },
+  unavailable: {
+    marginRight: 5,
+    width: 20,
+    height: 20,
+    backgroundColor: "#D34242",
+    borderRadius: 2
+  },
+  classicWrapper: {
+    flexDirection: 'row', 
+    marginRight: 16,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });
 
 export default ReserveScreen;
