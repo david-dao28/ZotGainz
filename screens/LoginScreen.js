@@ -24,7 +24,6 @@ export default function LoginScreen( { navigation } ) {
           containerStyle={styles.loginButtonContainer}
           titleStyle={styles.loginButtonText}
         />
-      {/* <Button title="Login" onPress={() => navigation.navigate("Home")} /> */}
     </View>
   )
 };
