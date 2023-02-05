@@ -23,14 +23,16 @@ function ReservationList() {
     setReservations((currReservationState) => [...currReservationState]);
   }
   return (
-    <View>
-        {reservationData.map((reservation) => 
-        <Reservation 
-        sport={reservation.facility}
-        courtLetter ={reservation.court} equipments={reservation.equipment} 
-        times={reservation.date}/>)}
+    <View></View>
 
-    </View>
+    // <View>
+    //     {reservationData.map((reservation) => 
+    //     <Reservation 
+    //     sport={reservation.facility}
+    //     courtLetter ={reservation.court} equipments={reservation.equipment} 
+    //     times={reservation.date}/>)}
+
+    // </View>
   );
 }
 

@@ -1,6 +1,6 @@
 import {StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native'
 import { Button } from '@rneui/themed';
-import React from 'react';
+import React, {useState} from 'react';
 import Vector from "../svgs/Vector.svg";
 import {useFonts} from 'expo-font';
 
@@ -24,6 +24,13 @@ export default function LoginScreen( { navigation } ) {
           containerStyle={styles.loginButtonContainer}
           titleStyle={styles.loginButtonText}
         />
+        {/* <Button
+          title="Back"
+          onPress={() => { navigation.goBack()}}
+          buttonStyle={styles.loginButton}
+          containerStyle={styles.loginButtonContainer}
+          titleStyle={styles.loginButtonText}
+        /> */}
     </View>
   )
 };
