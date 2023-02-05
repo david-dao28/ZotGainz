@@ -40,6 +40,7 @@ const timeArr = ["8:00 AM", "9:00 AM", "10:00 AM",
 
 const ReserveScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [congratsVisible, setCongratsVisible] = useState(false)
   const [schedule, setSchedule] = useState(
     ['green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
     'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green', 'green',
@@ -90,6 +91,18 @@ const ReserveScreen = () => {
   const closeConfirmation = () => {
     setIsVisible(false)
     setModalVisible(false)
+  }
+
+  const showCongrats = () => {
+    setIsVisible(false)
+    setModalVisible(false)
+    setCongratsVisible(true)
+  }
+
+  const closeCongrats = () => {
+    setIsVisible(false)
+    setModalVisible(false)
+    setCongratsVisible(false)
   }
 
   if (!loaded) {
@@ -199,7 +212,7 @@ const ReserveScreen = () => {
             <Text style={styles.modalCaption}>4 Rackets, 10 Balls</Text>
             <Button
               title="Confirm"
-              onPress={() => closeConfirmation()}
+              onPress={() => showCongrats()}
               color="#0059AC"
               radius={10}
               style={styles.buttonContainer}
@@ -208,6 +221,25 @@ const ReserveScreen = () => {
           </View>
         </View>
       </Modal>
+
+      <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white'}} isVisible={congratsVisible}>
+      <View style={{height: 700, backgroundColor: 'white'}}>
+        <Text style={styles.title}>Congratulations!</Text>
+        <Text style={styles.msg}>You have reserved a facility!</Text>
+        <View style={styles.img}>
+          <Image style={styles.petr} source={require('../assets/images/congrats-petr.png')} />
+        </View>
+        <Button
+          title="Exit"
+          onPress={() => closeCongrats()}
+          color="#0059AC"
+          radius={10}
+          style={styles.buttonContainer}
+          titleStyle={styles.buttonText}
+        />
+      </View>
+    </BottomSheet>
+
       {/* <Button
           title="Send Message"
           onPress={makeSmsApiRequest}
@@ -433,6 +465,29 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     color: '#FFD173',
   },
+  title: {
+    paddingTop: 64,
+    fontSize: 30,
+    fontWeight: 600,
+    fontFamily: 'Montserrat-Bold',
+    color: '#0059AC',
+    alignSelf: 'center'
+  },
+  msg: {
+    paddingTop: 10,
+    fontSize: 25,
+    fontWeight: 500,
+    fontFamily: 'Montserrat-Bold',
+    color: '#0059AC',
+    alignSelf: 'center'
+  },
+  img: {
+    paddingTop: 40,
+    alignContent: 'center'
+  }, 
+  petr: {
+    marginLeft: 35,
+  }, 
 });
 
 export default ReserveScreen;
