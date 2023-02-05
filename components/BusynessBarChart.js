@@ -39,7 +39,7 @@ const BusynessBarChart = () => {
   }, []);
 
   return (
-    <View style={[styles.container]}>
+    <View>
       <Text style={[styles.title]}>Expected Busyness</Text>
       <BarChart
         data={{
@@ -76,7 +76,7 @@ const BusynessBarChart = () => {
             stroke: "#ffa726"
           },
           propsForHorizontalLabels: {
-            fontSize: 9,
+            fontSize: 8,
             x: 45,
           },
           propsForVerticalLabels: {
@@ -85,7 +85,6 @@ const BusynessBarChart = () => {
           barPercentage: 0.3,
         }}
         style={{
-          marginVertical: 8,
           borderRadius: 16,
         }}
       />
@@ -94,19 +93,13 @@ const BusynessBarChart = () => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignSelf: 'center'
-  },
   title: {
     fontFamily: 'Montserrat-Bold',
     color: 'black',
-    fontSize: 50,
-    paddingTop: 80,
-    alignSelf: 'center'
+    fontSize: 20,
+    paddingTop: 32,
+    paddingBottom: 4,
   },
-  barChartText: {
-    paddingRight: 25
-  }
 });
 
 export default BusynessBarChart;

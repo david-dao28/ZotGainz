@@ -20,6 +20,7 @@ function HomeScreen(navigation) {
       <ScrollView style={styles.container}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Home</Text>
+          <BusynessBarChart />
           <HoursOfOperation />
           <UpcomingEvents /> 
         </View>
