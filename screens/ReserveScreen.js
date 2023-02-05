@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
   courtTextTitle: {
     marginLeft: 15,
     fontSize: 18,
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'Montserrat-Bold'
   },
   courtLower: {
     justifyContent: 'center',
