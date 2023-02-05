@@ -15,7 +15,7 @@ const params = new URLSearchParams({
   'venue_id': ARC_ID
 });
 
-const BarChartScreen = () => {
+const BusynessBarChart = () => {
   const [trafficData, setTrafficData] = useState([])
 
   const getTrafficData = () => {
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BarChartScreen;
+export default BusynessBarChart;
