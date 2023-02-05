@@ -20,8 +20,8 @@ export default function ScheduleRow({ court, row, updateHandler }) {
     console.log(newMinutes);
     let newRow = [...box];
     console.log(selectedDate);
-    if (box[boxNum] === 'green') {
-      newRow[boxNum] = 'yellow';
+    if (box[boxNum] === '#4BA56A') {
+      newRow[boxNum] = '#FFD173';
     }
     else {
       newRow[boxNum] = 'green';

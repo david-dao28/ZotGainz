@@ -19,6 +19,7 @@ const ReserveScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [congratsVisible, setCongratsVisible] = useState(false);
   const [startTime, setStartTime] = useState('');
+  const [cardData, setCardData] = useState([]);
   const [endTime, setEndTime] = useState('');
   const [courtNum, setCourtNum] = useState('');
   const [schedule, setSchedule] = useState(
@@ -61,6 +62,12 @@ const ReserveScreen = () => {
   //     })
   }
   
+  function addCardDataHandler() {
+    setCardData((cardState) => [...cardState, {time: startTime,
+      end: endTime, court: courtNum
+    }])
+  }
+
   const updateScheduleHandler = (boxNum) => {
     let newSchedule = [...schedule];
     if (newSchedule[boxNum] === 'green') {
@@ -103,10 +110,11 @@ const ReserveScreen = () => {
     } else if (selectedBoxes[0] >= 112 && selectedBoxes[0] < 140) {
       courtNum = 5; 
     }
-      
-    setCourtNum(courtNum);
-    await makeSmsApiRequest(moment(startTimeUnformatted).format("hh:mm a"), moment(endTimeUnformatted).format("hh:mm a"), courtNum);
 
+    setStartTime(moment(startTimeUnformatted).format('hh:mm a'));
+    setEndTime(moment(endTimeUnformatted).format('hh:mm a'));
+    setCourtNum(courtNum);
+    
     // console.log(newSchedule)
     setSchedule(newSchedule);
   }
@@ -114,6 +122,7 @@ const ReserveScreen = () => {
   const showConfirmation = () => {
     setIsVisible(false)
     setModalVisible(true)
+    onSubmitTimes();
   }
 
   const closeConfirmation = () => {
@@ -121,11 +130,12 @@ const ReserveScreen = () => {
     setModalVisible(false)
   }
 
-  const showCongrats = () => {
+  const showCongrats = async () => {
     setIsVisible(false);
     setModalVisible(false);
-    onSubmitTimes();
+    await makeSmsApiRequest(startTime, endTime, courtNum);
     setCongratsVisible(true);
+    addCardDataHandler();
   }
 
   const closeCongrats = () => {
@@ -249,10 +259,9 @@ const ReserveScreen = () => {
             </TouchableOpacity>
             <Text style={styles.modalTitle}>Your reservation:</Text>
             <Text style={styles.modalSubTitle}>Tennis Courts</Text>
-            <Text style={styles.modalText}>Court A</Text>
-            <Text style={styles.modalText}>February 4, 2023</Text>
-            <Text style={styles.modalText}>8:00 AM to 9:00 AM</Text>
-            <Text style={styles.modalCaption}>4 Rackets, 10 Balls</Text>
+            <Text style={styles.modalText}>Court {courtNum}</Text>
+            <Text style={styles.modalText}>February 5, 2023</Text>
+            <Text style={styles.modalText}>{startTime} to {endTime}</Text>
             <Button
               title="Confirm"
               onPress={() => showCongrats()}
@@ -282,13 +291,11 @@ const ReserveScreen = () => {
         />
       </View>
     </BottomSheet>
-
-      {/* <Button
-          title="Send Message"
-          onPress={makeSmsApiRequest}
-        /> */}
       <Text style={styles.reservationsText}>
         Your Reservations</Text>
+        <View>
+          {cardData.map((card) => <Reservation time={cardData.time} end={cardData.end} court={cardData.court}/>)}
+        </View>
       <ReservationList  />
 
     </ScrollView>
@@ -433,13 +440,14 @@ const styles = StyleSheet.create({
     fontWeight: 600
   },
   modalSubTitle: {
+    top: 5,
     marginBottom: 15,
     textAlign: 'center',
     fontFamily: 'Montserrat-Regular',
     fontSize: 22,
     fontWeight: 600
   },
-  modalSubTitle: {
+  modalText: {
     marginBottom: 15,
     textAlign: 'center',
     fontFamily: 'Montserrat-Regular',
