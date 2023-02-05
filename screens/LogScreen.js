@@ -5,6 +5,7 @@ const LogScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>This is the LogScreen</Text>
+      
     </View>
   )
 }
