@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import { Button, BottomSheet } from '@rneui/themed';
 import { useFonts } from 'expo-font';
 import ReservationList from './ReservationList';
+import Reservation from './Reservation'
 import axios from 'axios';
 import ScheduleRow from '../components/ScheduleRow';
 import CloseIcon from '../svgs/close-icon.svg';
@@ -66,6 +67,10 @@ const ReserveScreen = () => {
     setCardData((cardState) => [...cardState, {time: startTime,
       end: endTime, court: courtNum
     }])
+
+    console.log(startTime);
+    console.log(endTime);
+    console.log(courtNum);
   }
 
   const updateScheduleHandler = (boxNum) => {
@@ -294,10 +299,9 @@ const ReserveScreen = () => {
       <Text style={styles.reservationsText}>
         Your Reservations</Text>
         <View>
-          {cardData.map((card) => <Reservation time={cardData.time} end={cardData.end} court={cardData.court}/>)}
+          {cardData && 
+          cardData.map((card) => <Reservation time={card.time} end={card.end} court={card.court}/>)}
         </View>
-      <ReservationList  />
-
     </ScrollView>
   )
 }
