@@ -91,9 +91,14 @@ const ReserveScreen = () => {
       </View>
       <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white'}} isVisible={isVisible}>
         <View style={{height: 700, backgroundColor: 'white'}}>
-          <TouchableOpacity style={styles.scheduleClose} onPress={() => setIsVisible(false)}>
-            <CloseIcon  width={30} height={30} /> 
-          </TouchableOpacity>
+          <View>
+            <Text style={styles.dateText}>
+              02/05/23
+            </Text>
+            <TouchableOpacity style={styles.scheduleClose} onPress={() => setIsVisible(false)}>
+              <CloseIcon  width={30} height={30} /> 
+            </TouchableOpacity> 
+          </View>
           <ScrollView horizontal style={styles.scheduleContainer} 
           contentContainerStyle={{flexDirection: 'row'}}>
             <View style={styles.spaceSection}>
@@ -269,7 +274,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   scheduleContainer: {
-    top: 100,
+    top: 64,
     flexDirection: 'row',
   },
   dateContainer: {
@@ -292,7 +297,10 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontFamily: 'Montserrat-Bold',
-    fontSize: 20
+    color: '#0059AC', 
+    fontSize: 30,
+    paddingLeft: 28,
+    top: 20
   },
   spaceSection: {
     flex: 1,
@@ -362,7 +370,7 @@ const styles = StyleSheet.create({
   },
   scheduleClose: {
     paddingLeft: 340,
-    top: 20
+    top: -15
   },
   closeIcon: {
     paddingLeft: 225,
