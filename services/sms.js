@@ -2,7 +2,7 @@
 // Find your Account SID and Auth Token at twilio.com/console
 // and set the environment variables. See http://twil.io/secure
 const accountSid = 'ACb4641e768a2c70f02bf98515ba87a2e0';
-const authToken = '90b89689af72ef5c3d4afe13b6a6e0e7';
+const authToken = '7c127ce2448f8f59046f074025843ac8';
 const express = require('express');
 const port = 3000;
 const client = require('twilio')(accountSid, authToken);
