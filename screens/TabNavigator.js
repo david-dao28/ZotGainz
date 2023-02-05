@@ -86,18 +86,8 @@ const TabNavigator = () => {
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Workouts"
-        component={LogScreen}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
         name="Reserve"
         component={ReserveScreen}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>

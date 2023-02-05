@@ -8,6 +8,7 @@ import axios from 'axios';
 import ScheduleRow from '../components/ScheduleRow';
 import CloseIcon from '../svgs/close-icon.svg';
 import moment from 'moment/moment';
+import Reservation from './Reservation';
 
 const timeArr = ["8:00 AM", "9:00 AM", "10:00 AM",
 "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM",
@@ -274,8 +275,8 @@ const ReserveScreen = () => {
         </View>
       </Modal>
 
-      <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white'}} isVisible={congratsVisible} style={{zIndex: 1}}>
-      <View style={{height: 700, backgroundColor: 'white'}}>
+      <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white', }} isVisible={congratsVisible}>
+      <View style={{height: 750, backgroundColor: 'white', marginTop: 125}}>
         <Text style={styles.title}>Congratulations!</Text>
         <Text style={styles.msg}>You have reserved a facility!</Text>
         <View style={styles.img}>
