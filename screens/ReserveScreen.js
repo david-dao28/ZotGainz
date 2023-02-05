@@ -77,10 +77,28 @@ const ReserveScreen = () => {
   }
 
   const onSubmitTimes = () => {
-      const selectedBoxes = schedule.findIndex(box => box === 'yellow');
-      let newSchedule = [...schedule];
-      selectedBoxes.forEach(index => newSchedule[index] = 'red');
-      setSchedule(newSchedule);
+    let selectedDate = new Date(2023, 2, 5, 8, 0, 0);
+    const selectedBoxes = schedule.findIndex(box => box === 'yellow');
+    let newSchedule = [...schedule];
+    selectedBoxes.forEach(index => newSchedule[index] = 'red');
+    let startTime = moment(selectedDate).add(30*selectedBoxes[0], 'm').toDate();
+    let endTime = moment(selectedDate).add(30*selectedBoxes[selectedBoxes.length - 1], 'm').toDate();
+    startTime = moment(startTime).format("hh:mm a");
+    endTime =  moment(endTime).format("hh:mm a");
+    let courtNum = 1;
+
+    if (selectedBoxes[0] >= 28 && selectedBoxes[0] < 56) {
+      courtNum = 2;
+    } else if (selectedBoxes[0] >= 56 && selectedBoxes[0] < 84) {
+      courtNum = 3;
+    } else if (selectedBoxes[0] >= 84 && selectedBoxes[0] < 112)
+    {
+      courtNum = 4;
+    } else if (selectedBoxes[0] >= 112 && selectedBoxes[0] < 140)
+      courtNum = 5;
+    
+      
+    setSchedule(newSchedule);
   }
   
   const showConfirmation = () => {
