@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, {useEffect, useState} from 'react'
 
+
 export default function ScheduleRow({ court, row, updateHandler }) {
+  let selectedDate = new Date();
   const courtNum = court;
   const [box, setBox] = useState([])
   useEffect(() => {
@@ -118,8 +120,8 @@ const styles = StyleSheet.create({
       },
       cell:{
         backgroundColor: "#ebedf0",
-        height: 40,
-        width: 40,
+        height: 57,
+        width: 57,
         margin: 1,
       },
 })

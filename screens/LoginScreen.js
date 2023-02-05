@@ -5,6 +5,7 @@ import Vector from "../svgs/Vector.svg";
 import {useFonts} from 'expo-font';
 
 export default function LoginScreen( { navigation } ) {
+  const [netid, setNetId] = useState('')
   const [loaded] = useFonts({
     'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
     'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
@@ -15,22 +16,21 @@ export default function LoginScreen( { navigation } ) {
     <Vector width={20.12} height={19.62} />
     </TouchableOpacity>
       <Text style={styles.titleContainer}>Sign In</Text>
-      <TextInput placeholder='Enter your UCI NetID' style={styles.textInputContainer}></TextInput>
+      <TextInput 
+        placeholder='Enter your UCI NetID' 
+        onChangeText={setNetId}
+        value={netid}
+        style={styles.textInputContainer}
+      />
       <Text style={styles.forgotTextContainer}> Forgot your netID?</Text>
-      <Button
+      {netid && <Button
           title="Next"
           onPress={() => { navigation.navigate('HomeTab')}}
           buttonStyle={styles.loginButton}
           containerStyle={styles.loginButtonContainer}
           titleStyle={styles.loginButtonText}
-        />
-        {/* <Button
-          title="Back"
-          onPress={() => { navigation.goBack()}}
-          buttonStyle={styles.loginButton}
-          containerStyle={styles.loginButtonContainer}
-          titleStyle={styles.loginButtonText}
-        /> */}
+      />
+      }
     </View>
   )
 };

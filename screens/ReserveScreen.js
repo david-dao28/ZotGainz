@@ -57,6 +57,10 @@ const ReserveScreen = () => {
     }
     setSchedule(newSchedule);
   }
+  
+  const boxIsSelected = () => {
+    return schedule.find(box => box === 'yellow'); 
+  }
 
   const onSubmitTimes = () => {
       const selectedBoxes = schedule.findIndex(box => box === 'yellow');
@@ -86,8 +90,10 @@ const ReserveScreen = () => {
         </Text>
       </View>
       <BottomSheet modalProps={{ transparent: true, backgroundColor: 'white'}} isVisible={isVisible}>
-
         <View style={{height: 700, backgroundColor: 'white'}}>
+          <TouchableOpacity style={styles.scheduleClose} onPress={() => setIsVisible(false)}>
+            <CloseIcon  width={30} height={30} /> 
+          </TouchableOpacity>
           <ScrollView horizontal style={styles.scheduleContainer} 
           contentContainerStyle={{flexDirection: 'row'}}>
             <View style={styles.spaceSection}>
@@ -98,25 +104,30 @@ const ReserveScreen = () => {
               </View>
                 <View style={styles.courtLower}>
                   <Text style={styles.courtLowerText}>
-                    Court A
+                    Court 1
                   </Text>
                  </View>
                 <View>
-                  <View style={styles.courtLower}>
+                <View style={styles.courtLower}>
                   <Text style={styles.courtLowerText}>
-                    Court B
+                    Court 2
                   </Text>
-                  </View>
-                  <View style={styles.courtLower}>
+                </View>
+                <View style={styles.courtLower}>
                   <Text style={styles.courtLowerText}>
-                    Court C
-                  </Text>
-                  </View>
-                  <View style={styles.courtLower}>
+                    Court 3
+                </Text>
+                </View>
+                <View style={styles.courtLower}>
                   <Text style={styles.courtLowerText}>
-                    Court D
+                    Court 4
                   </Text>
-                  </View>
+                </View>
+                <View style={styles.courtLower}>
+                  <Text style={styles.courtLowerText}>
+                    Court 5
+                  </Text>
+                </View>
               </View>
             </View>
             <View style={styles.gridSection}>
@@ -125,8 +136,7 @@ const ReserveScreen = () => {
             </View>
             <View style={styles.timeContainer}>
               {timeArr.map((time) => <Text style={styles.timeText}>{time}</Text>)}
-
-              </View>
+            </View>
             <ScheduleRow court = {0} row={schedule.slice(0, 28)} updateHandler={updateScheduleHandler}/>
             <ScheduleRow court = {1} row={schedule.slice(28, 56)} updateHandler={updateScheduleHandler}/>
             <ScheduleRow court = {2} row={schedule.slice(56, 84)} updateHandler={updateScheduleHandler}/>
@@ -134,7 +144,7 @@ const ReserveScreen = () => {
             <ScheduleRow court = {4} row={schedule.slice(112, 140)} updateHandler={updateScheduleHandler}/>
             </View>
           </ScrollView>
-          <Button
+          {boxIsSelected() && <Button
             title="Submit"
             onPress={() => showConfirmation()}
             style={styles.submitButton}
@@ -143,6 +153,7 @@ const ReserveScreen = () => {
             color="#0059AC"
             radius={10}
           />
+          }
         </View>
       </BottomSheet>
       <Button
@@ -262,10 +273,9 @@ const styles = StyleSheet.create({
   },
   scheduleContainer: {
     top: 100,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   dateContainer: {
-    width: 'auto',
     height: 30,
     borderWidth: 1,
     borderColor: '#D9D9D9',
@@ -282,7 +292,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   dateText: {
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 20
   },
   spaceSection: {
     flex: 1,
@@ -291,7 +302,8 @@ const styles = StyleSheet.create({
     marginRight: 7
   },
   gridSection: {
-    flex: 1
+    flex: 1,
+    paddingRight: 28
   },
   centeredView: {
     flex: 1,
@@ -349,6 +361,10 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: '#2196F3',
   },
+  scheduleClose: {
+    paddingLeft: 340,
+    top: 20
+  },
   closeIcon: {
     paddingLeft: 225,
     bottom: 15
@@ -356,7 +372,7 @@ const styles = StyleSheet.create({
   courtTitle: {
     marginLeft: 28,
     fontFamily: 'Montserrat-Regular',
-    height: 60,
+    height: 69,
     width: 144,
     borderWidth: 1,
     borderColor: '#D9D9D9',
@@ -371,7 +387,7 @@ const styles = StyleSheet.create({
   courtLower: {
     justifyContent: 'center',
     marginLeft: 28,
-    height: 55,
+    height: 59,
     width: 144,
     borderWidth: 1,
     borderColor: '#D9D9D9',
