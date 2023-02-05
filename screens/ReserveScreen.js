@@ -6,8 +6,8 @@ import { useFonts } from 'expo-font';
 import ReservationList from './ReservationList';
 import axios from 'axios';
 import ScheduleRow from '../components/ScheduleRow';
-import {updateBox, getBoxColor } from '../services/secureStore';
-import CloseIcon from '../svgs/close-icon.svg'
+import CloseIcon from '../svgs/close-icon.svg';
+
 const makeSmsApiRequest = () => {
   axios.get('http://169.234.116.118:3000/sms',
     {
@@ -131,17 +131,14 @@ const ReserveScreen = () => {
               </View>
             </View>
             <View style={styles.gridSection}>
-            <View style={styles.dateContainer}>
-              <Text style={styles.dateText}>                Saturday, February 4 2023</Text>
-            </View>
-            <View style={styles.timeContainer}>
-              {timeArr.map((time) => <Text style={styles.timeText}>{time}</Text>)}
-            </View>
-            <ScheduleRow court = {0} row={schedule.slice(0, 28)} updateHandler={updateScheduleHandler}/>
-            <ScheduleRow court = {1} row={schedule.slice(28, 56)} updateHandler={updateScheduleHandler}/>
-            <ScheduleRow court = {2} row={schedule.slice(56, 84)} updateHandler={updateScheduleHandler}/>
-            <ScheduleRow court = {3} row={schedule.slice(84, 112)} updateHandler={updateScheduleHandler}/>
-            <ScheduleRow court = {4} row={schedule.slice(112, 140)} updateHandler={updateScheduleHandler}/>
+              <View style={styles.timeContainer}>
+                {timeArr.map((time) => <Text style={styles.timeText}>{time}</Text>)}
+              </View>
+              <ScheduleRow court = {0} row={schedule.slice(0, 28)} updateHandler={updateScheduleHandler}/>
+              <ScheduleRow court = {1} row={schedule.slice(28, 56)} updateHandler={updateScheduleHandler}/>
+              <ScheduleRow court = {2} row={schedule.slice(56, 84)} updateHandler={updateScheduleHandler}/>
+              <ScheduleRow court = {3} row={schedule.slice(84, 112)} updateHandler={updateScheduleHandler}/>
+              <ScheduleRow court = {4} row={schedule.slice(112, 140)} updateHandler={updateScheduleHandler}/>
             </View>
           </ScrollView>
           {boxIsSelected() && <Button
@@ -283,11 +280,13 @@ const styles = StyleSheet.create({
   },
   timeContainer: {
     flexDirection: 'row',
+    height: 68,
   },
   timeText: {
     width: '7.1428%',
+    textAlign: 'center',
     borderWidth: 1,
-    padding: 10,
+    padding: 25,
     borderColor: '#D9D9D9',
     borderRadius: 2,
   },
