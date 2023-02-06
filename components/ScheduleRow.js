@@ -16,8 +16,8 @@ export default function ScheduleRow({ court, row, updateHandler }) {
     let newHours = moment(selectedDate).add(30*boxNum, 'm').toDate().getHours();
     let newMinutes = moment(selectedDate).add(30*boxNum, 'm').toDate().getMinutes();
 
-    console.log(newHours);
-    console.log(newMinutes);
+    // console.log(newHours);
+    // console.log(newMinutes);
     let newRow = [...box];
     console.log(selectedDate);
     if (box[boxNum] === '#4BA56A') {
